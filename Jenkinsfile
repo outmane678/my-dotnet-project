@@ -1,27 +1,53 @@
 pipeline {
     agent any 
 
+    environment{
+        DOTNET = "C:\\Program Files\\dotnet\\dotnet.exe"
+        DEPLOY_DIR = "C:\\inetpub`\\wwwroot\\MonApp"
+    }
+
     stages {
+        stage('Checkout'){
+            steps {
+                git 'https://github.com/outmane678/my-dotnet-project.git'
+            }
+        }
         stage('Restore'){
             steps {
-                bat 'dotnet restore'
+                bat '"%DOTNET%" restore'
             }
         }
         stage('Build'){
             steps {
-                bat 'dotnet build --configuration Release'
+                bat '"%DOTNET%" build --configuration Release'
             }
 
-        }
+            }
+
         stage('Test'){
             steps {
-                bat 'dotnet test'
+                bat '"%DOTNET%" test'
             }
-            }
-            stage('Publish'){
+        }
+
+        stage('Publish & Deploy'){
                 steps {
-                    bat 'dotnet publish -c Release -o publish'
+                    bat '"%DOTNET%" publish -c Release -o "%DEPLOY_DIR%"'
+                }
+        }
+
+        stage('Restart IIS'){
+            steps {
+                bat 'iisreset'
             }
+        }
+    }
+    post{
+        success {
+            echo 'Build and deployment successful!'
+        }
+        failure {
+            echo 'Build or deployment failed.'
         }
     }
 }
