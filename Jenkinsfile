@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('Checkout'){
+        stage('Checkout'){ 
             steps {
                 git branch: 'main', url: 'https://github.com/outmane678/my-dotnet-project.git'
             }
