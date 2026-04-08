@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout'){
             steps {
-                git 'https://github.com/outmane678/my-dotnet-project.git'
+                git branch: 'main', url: 'https://github.com/outmane678/my-dotnet-project.git'
             }
         }
         stage('Restore'){
