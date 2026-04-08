@@ -3,7 +3,7 @@ pipeline {
 
     environment{
         DOTNET = "C:\\Program Files\\dotnet\\dotnet.exe"
-        DEPLOY_DIR = "C:\\inetpub`\\wwwroot\\MonApp"
+        DEPLOY_DIR = "C:\\inetpub`\\wwwroot\\MonApp" 
     }
 
     stages {
